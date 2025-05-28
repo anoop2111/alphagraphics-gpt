@@ -5,8 +5,10 @@ import openai
 import os
 
 # Set your OpenAI API key here or use an environment variable
-openai.api_key = os.environ.get("OPENAI_API_KEY", "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
-")
+openai.api_key = os.environ.get("OPENAI_API_KEY", "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")
+
+
+
 
 app = Flask(__name__)
 
