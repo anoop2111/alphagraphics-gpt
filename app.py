@@ -4,8 +4,11 @@ from bs4 import BeautifulSoup
 import openai
 import os
 
-# Set your OpenAI API key here or use an environment variable
-openai.api_key = os.environ.get("OPENAI_API_KEY", "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")
+# Set your OpenAI API key from an environment variable ONLY (DO NOT hard-code!)
+openai_api_key = os.environ.get("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")
+if not openai_api_key:
+    raise RuntimeError("OPENAI_API_KEY environment variable not set. Please set it in your Render dashboard or .env file.")
+openai.api_key = openai_api_key
 
 app = Flask(__name__)
 
@@ -53,7 +56,6 @@ def gpt(prompt, temperature=0.7, max_tokens=500):
         temperature=temperature,
         max_tokens=max_tokens
     )
-    # openai>=1.0.0 returns a response object, not a dict
     return response.choices[0].message.content.strip()
 
 @app.route("/", methods=["GET", "POST"])
