@@ -50,7 +50,8 @@ def extract_text_from_url(url):
         return f"Error fetching URL: {str(e)}"
 
 def gpt(prompt, temperature=0.7, max_tokens=500):
-    response = openai.resources.chat.completions.create(
+
+    response = openai.chat.completions.create(sss
         model="gpt-4",
         messages=[{"role": "user", "content": prompt}],
         temperature=temperature,
