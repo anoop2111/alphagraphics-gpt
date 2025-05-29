@@ -7,9 +7,6 @@ import os
 # Set your OpenAI API key here or use an environment variable
 openai.api_key = os.environ.get("OPENAI_API_KEY", "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")
 
-
-
-
 app = Flask(__name__)
 
 HTML_TEMPLATE = '''
@@ -50,14 +47,14 @@ def extract_text_from_url(url):
         return f"Error fetching URL: {str(e)}"
 
 def gpt(prompt, temperature=0.7, max_tokens=500):
-
-    response = openai.chat.completions.create(sss
+    response = openai.chat.completions.create(
         model="gpt-4",
         messages=[{"role": "user", "content": prompt}],
         temperature=temperature,
         max_tokens=max_tokens
     )
-    return response['choices'][0]['message']['content'].strip()
+    # openai>=1.0.0 returns a response object, not a dict
+    return response.choices[0].message.content.strip()
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -83,4 +80,3 @@ def index():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
-
